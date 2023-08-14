@@ -1,0 +1,2 @@
+"0","Scatterplot <- ggplot(data=Loan_data, aes(x=Applicant_Income, y=Loan_Amount))+geom_point(aes(shape = Education),size = 3)+xlab(""Applicant Income"")+ylab(""Loan Amount"")+ggtitle(""Relationship between Loan Amount and Applicant Income"")"
+"0","Scatterplot"

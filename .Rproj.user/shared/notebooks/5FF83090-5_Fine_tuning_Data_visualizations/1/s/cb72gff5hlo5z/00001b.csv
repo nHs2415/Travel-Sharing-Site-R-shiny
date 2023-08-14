@@ -1,0 +1,5 @@
+"0",""
+"0","# Change line type"
+"0","ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color=""black"", fill=""white"","
+"0","linetype=""dashed"", binwidth=1)"
+"0",""

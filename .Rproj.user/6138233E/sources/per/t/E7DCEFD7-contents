@@ -1,0 +1,239 @@
+---
+title: "Fine tuning the Data visualizations"
+author: "STA 1041 Statistics Applications II"
+date: '2023-06-18'
+output: html_document
+---
+# GGPLOT
+
+## Scatter plot
+```{r}
+library(ggplot2) # load the package
+data(msleep)
+str(msleep) #structure of the dataset
+head(msleep,8) # display first 8 rows of the dataset
+tail(msleep,8)
+?msleep # to describe the data set
+
+# Basic plot
+Scatterplot_1 <- ggplot(data=msleep, aes(x=bodywt, y=sleep_total))+geom_point()
+Scatterplot_1
+
+# Coloured plot (introducing the variable vore)
+Scatterplot_2 <- ggplot(data=msleep, aes(x=bodywt, y=sleep_total, col=vore))+geom_point()
+Scatterplot_2
+
+# Add a logarithmic scale on the x axis
+Scatterplot_3 <- ggplot(data=msleep, aes(x=log(bodywt), y=sleep_total, col=vore))+geom_point()
+Scatterplot_3
+
+# Add a title, x-axis name, y-axis name, increase the size of the points to the existing graph  
+Scatterplot_3 <- Scatterplot_3+geom_point(size=3)+xlab("Log Body Weight")+ylab("Total Hours  Sleep")+ggtitle("Some Sleep Data")
+Scatterplot_3
+
+```
+
+## Histogram
+
+```{r}
+library(ggplot2) # load the package
+
+# Basic Histogram
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram()
+
+# Change line color and fill colour
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color="black",fill="light blue",
+binwidth=1)
+
+# Change the width of bins
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color="black",fill="light blue",
+binwidth=1)
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color="black",fill="light blue",
+binwidth=5)
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color="black",fill="light blue",
+bins=10)
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color="black",fill="light blue",
+bins=20)
+
+# Change line type
+ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color="black", fill="white",
+linetype="dashed", binwidth=1)
+
+```
+
+## Box plot
+```{r}
+# Box plot of sleep total
+b0<-ggplot(msleep,aes(y=sleep_total))+geom_boxplot()
+b0
+# Basic box plot
+b1<-ggplot(msleep,aes(x=vore, y=sleep_total))+geom_boxplot()
+b1
+
+# Add label names & change axis ticks
+b2<-b1+scale_x_discrete(name="Vore")+scale_y_continuous(name="Amount of Total sleep",  breaks = seq(0,30,5), limits=c(0,30))+ggtitle("Box plot of amount of total sleep by vore")
+b2
+
+#Change the line & fill color, degree of transparency in the box fill area, outlier shape and color  
+b3<-b1<-ggplot(msleep,aes(x=vore, y=sleep_total))+geom_boxplot(fill="dark blue",color = "light blue",  alpha=0.7, outlier.color = "red",outlier.shape = 4)
+b3
+
+```
+
+## Bar chart
+```{r}
+
+# Basic bar chart
+ggplot(msleep, aes(x=vore)) + geom_bar()
+
+# Change fill and border colour
+ggplot(msleep, aes(x=vore)) + geom_bar(color = "black", fill = 'red')
+ggplot(msleep, aes(x=vore)) + geom_bar(color = "black", fill = c('red','green','blue','yellow','black'))
+
+# Turn the barplot horizontally
+ggplot(msleep, aes(x=vore)) + geom_bar(color = "black", fill= c('red','green','blue','yellow','black')) + coord_flip()
+
+
+# Set the legend position and change fill and border colour using RColorBrewer
+ggplot(msleep, aes(x=vore,fill=vore)) + geom_bar(color = "black" )
+library("RColorBrewer")
+ggplot(msleep, aes(x=vore,fill=vore)) + geom_bar(color = "black" )+scale_fill_brewer(palette="Set3")
+
+# Change the width of the bars. Range between 0 and 1, 1 being full width  # Set the bar fill colors manually
+ggplot(msleep,	aes(x=vore,fill=vore))	+	geom_bar(width=0.3)	+  scale_fill_manual(values = c("purple", "pink", "sky blue","green") ) + theme(legend.position="none")
+
+
+```
+
+## Pie chart
+```{r}
+library(ggplot2)
+library(dplyr) # Package used for general data frame manipulation
+# Rather than loading both packages you can use ‘library(tidyverse) ‘
+data<-data.frame(subject=c("Physics","English","Mathematics","Biology","Chemistry"),  count=c(27,35,18,12,28)) # Create the data frame
+# Basic pie chart
+ggplot(data, aes(x="", y=count, fill=subject)) + geom_bar(stat="identity") +  coord_polar("y", start=0)
+#By default, geom_bar() will simply count the occurrences of each unique value for the x variable and use bars to display the counts. If you provide the argument stat=”identity” to geom_bar() then you're telling R to calculate the sum of the y variable, grouped by the x variable and use bars to display the sums.
+
+# Compute the position of labels  
+data <- data %>%  arrange(desc(subject)) %>%
+mutate(prop = count / sum(count) *100) %>%  
+  mutate(ypos = cumsum(prop)- 0.5*prop )
+head(data)
+# Display slice percentage as labels: geom_text()
+# Apply theme_void() to remove axes, background, etc
+ggplot(data, aes(x="", y=prop, fill=subject)) + geom_bar(stat="identity", width=1, color="white")+
+coord_polar("y", start=0) + theme_void() +	theme(legend.position="left") + geom_text(aes(y=	ypos,	label	=	paste(round(prop,2),"%")),	color	=	"white",	size=3)	+  scale_fill_brewer(palette="Set1")
+
+```
+
+# PLOTLY
+```{r}
+install.packages("plotly")
+library(plotly)
+```
+
+## Scatter plot
+```{r}
+# Load dataset
+data("mtcars")
+# Examine the first 3 rows of the data
+head(mtcars, 3)
+```
+
+In this example we will plot a scatter plot of miles per gallon versus displacement. Below, we set column mpg as x axis and column disp as y axis. We set the dots in the scatter of size 10 and color red. In the layout(), we set plot title and names of the x axis and y axis.
+```{r}
+plot_ly(data = mtcars, x = ~mpg, y = ~disp, type = "scatter", mode = "markers", marker = list(size = 10, color = "red")) %>% 
+  layout(title = "Miles per gallon versus displacement", xaxis = list(title = "Miles per gallon"), 
+         yaxis = list(title = "Displacement"))
+```
+
+We can also add a colorbar “Miles per gallon” to the scatter plot and let the colors of the dots changed by the value of column cyl. We can set the colorscale of the colorbar as ‘Viridis’.
+```{r}
+plot_ly(data = mtcars, x = ~mpg, y = ~disp, type = "scatter", mode = "markers", marker = list(size = 10, colorbar = list(title = "Number of cylinders"), color = ~cyl, colorscale='Viridis')) %>% 
+  layout(title = "Miles per gallon versus displacement", xaxis = list(title = "Miles per gallon"), 
+         yaxis = list(title = "Displacement"))
+```
+
+Similarly we can let the size of dots depends on the weigt, the gear column.
+```{r}
+plot_ly(data = mtcars, x = ~mpg, y = ~disp, type = "scatter", mode = "markers", marker = list(size = ~gear, colorbar = list(title = "Number of cylinders"), color = ~cyl, colorscale='Viridis')) %>% 
+  layout(title = "Miles per gallon versus displacement", xaxis = list(title = "Miles per gallon"), 
+         yaxis = list(title = "Displacement"))
+```
+
+Then, we realizes these dots are too small, we can increase the size of the dots inscale by add “*4“:
+```{r}
+plot_ly(data = mtcars, x = ~mpg, y = ~disp, type = "scatter", mode = "markers", marker = list(size = ~gear*4, colorbar = list(title = "Number of cylinders"), color = ~cyl, colorscale='Viridis', reversescale =T)) %>% 
+  layout(title = "Miles per gallon versus displacement", xaxis = list(title = "Miles per gallon"), 
+         yaxis = list(title = "Displacement"))
+```
+
+## Box plot
+```{r}
+df <- datasets::chickwts
+head(df)
+```
+
+Let’s create a simple boxplot of the weight of all chicks in the experiment:
+```{r}
+plot_ly(
+  data = df,
+  y = ~weight,
+  type = "box"
+)
+```
+
+One of the great features of plotly is the hover info. Go ahead and hover your cursor over the plot to see what the lines and boxes represent in this plot.
+
+This graph shows us the weight distribution for all the chicks, but it would be more helpful to create a separate box for each type of feed that was used. We can do that by mapping the feed variable to the x-axis:
+```{r}
+plot_ly(
+  data = df,
+  y = ~weight,
+  x = ~feed,
+  type = "box"
+)
+```
+
+Now we can see some clear differences between groups! It appears that the casein group has the highest median weight, but also has a lot of variation. The meatmeal group has the widest range of weight and the linseed group seems most symmetrically distributed around its median value. The dots above and below the sunflower group indicate that those data points are outliers.
+
+To make the box for each feed a different color, you can add a color argument that is mapped to the same variable:
+```{r}
+plot_ly(
+  data = df,
+  y = ~weight,
+  x = ~feed,
+  type = "box",
+  color = ~feed,
+  showlegend = FALSE
+)
+```
+
+## Pie charts
+```{r}
+head(USPersonalExpenditure)
+USPersonalExpenditure <- data.frame("Categorie"=rownames(USPersonalExpenditure), USPersonalExpenditure)
+data <- USPersonalExpenditure[,c('Categorie', 'X1960')]
+head(data)
+
+fig <- plot_ly(data, labels = ~Categorie, values = ~X1960, type = 'pie')
+fig
+fig <- fig %>% layout(title = 'United States Personal Expenditures by Categories in 1960')
+fig
+
+```
+
+Styled Pie Chart
+```{r}
+colors <- c('rgb(211,94,96)', 'rgb(128,133,133)', 'rgb(144,103,167)', 'rgb(171,104,87)', 'rgb(114,147,203)')
+
+fig <- plot_ly(data, labels = ~Categorie, values = ~X1960, type = 'pie',
+        textposition = 'inside',textinfo = 'label+percent',
+        insidetextfont = list(color = '#FFFFFF'),hoverinfo = 'text',
+        text = ~paste('$', X1960, ' billions'),
+        marker = list(colors = colors,line = list(color = '#FFFFFF', width = 1)),
+        showlegend = FALSE)
+fig
+```
+

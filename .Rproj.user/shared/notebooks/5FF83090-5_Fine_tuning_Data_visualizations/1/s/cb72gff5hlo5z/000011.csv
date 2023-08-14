@@ -1,0 +1,4 @@
+"0",""
+"0","# Change line color and fill colour"
+"0","ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color=""black"",fill=""light blue"","
+"0","binwidth=1)"

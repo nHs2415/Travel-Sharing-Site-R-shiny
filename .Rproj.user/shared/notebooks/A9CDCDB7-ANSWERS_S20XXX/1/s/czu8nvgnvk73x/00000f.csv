@@ -1,0 +1,5 @@
+"0","ggplot(data = Loan_data, aes(x = Applicant_Income, y = Loan_Amount)) +"
+"0","  geom_point(aes(shape = Education),size = 3) +"
+"0","  xlab(""Applicant Income"") +"
+"0","  ylab(""Loan Amount"") +"
+"0","  ggtitle(""Applicant Income vs Loan Amount"")"

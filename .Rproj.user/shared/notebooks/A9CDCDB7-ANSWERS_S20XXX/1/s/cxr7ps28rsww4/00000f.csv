@@ -1,0 +1,6 @@
+"0","total_sales <- function(data){"
+"0","  Totals <- colSums(data[,c(""Product_A"",""Product_B"")])"
+"0","  results <- data.frame(Product = c(""Product A"",""Product B""), Total_sales = Totals)"
+"0","  return(results)"
+"0","}"
+"0","total_sales(sales_data)"

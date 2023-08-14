@@ -1,0 +1,91 @@
+---
+title: "ANSWERS_S20XXX"
+author: "Vindya Prabhawi"
+date: "8/8/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r libraries}
+library(ggplot2)
+```
+
+
+## 01  
+## a
+```{r loading_data}
+Loan_data <- read.csv("./Data/LoanData.csv")
+attach(Loan_data)
+head(Loan_data,5)
+```
+
+## b
+```{r}
+str(Loan_data)
+```
+
+```{r}
+ggplot(data = Loan_data, aes(x = Applicant_Income, y = Loan_Amount)) +
+  geom_point(aes(shape = Education),size = 3) +
+  xlab("Applicant Income") +
+  ylab("Loan Amount") +
+  ggtitle("Applicant Income vs Loan Amount")
+```
+
+## c
+```{r}
+summary(Loan_data)
+```
+
+```{r}
+Loan_data$Property_Area <- as.factor(Property_Area)
+str(Loan_data)
+```
+
+```{r}
+ggplot(data = Loan_data, aes(x = Property_Area,y = Loan_Amount)) +
+  geom_boxplot() +
+  xlab("Property Area") +
+  scale_y_continuous(name = "Loan Amount",limits = c(0,500),breaks = seq(0,500,50))
+```
+
+## 02  
+## a
+```{r}
+sales_data <- read.csv("./Data/sales_data.csv")
+attach(sales_data)
+head(sales_data)
+```
+
+## b
+```{r}
+total_sales <- function(data){
+  Totals <- colSums(data[,c("Product_A","Product_B")])
+  results <- data.frame(Product = c("Product A","Product B"), Total_sales = Totals)
+  return(results)
+}
+total_sales(sales_data)
+```
+
+## c
+```{r}
+average_sales <- function(data){
+  averages <- colMeans(data[,c("Product_A","Product_B")])
+  average_sales <- data.frame(Product = c("Product A","Product B"), Average_Sales = averages)
+  return(average_sales)
+}
+average_sales(sales_data)
+```
+
+## d
+```{r}
+total_sales(sales_data)
+```
+
+```{r}
+average_sales(sales_data)
+```

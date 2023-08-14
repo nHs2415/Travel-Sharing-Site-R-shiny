@@ -1,0 +1,89 @@
+library(shiny)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+  titlePanel (h1(strong("Sri Lanka Travel Destination"),style = "color: blue", align = "center")),
+  sidebarLayout(
+    sidebarPanel(
+      h3(strong("BOOK UNIQUE EXPERIENCES"), align = "center"), # Secondary header
+      
+      p("Explore top rated tours, hotels and restaurants around the world",
+        align = "center"), # A paragraph of text with justified alignment
+      
+      div(
+        img(src = "image_1.png",width = "150", height = "150"),
+        style = "text-align: center;")
+    ),
+    mainPanel(
+      h3("Welcome to our premier travel website, your gateway to unforgettable
+         inbound tours to Sri Lanka. With a team of dedicated professionals,
+         we offer exceptional services and curated tour packages, ensuring a
+         service par excellence. Explore the splendor of Sri Lanka's diverse
+         landscapes and rich cultural heritage with us for an unforgettable experience.",
+         style = "text-align: justify;"),
+      style = "background-color: #f0f8ff;"
+    )
+  ),
+  
+  tabsetPanel(
+    tabPanel("Destination",
+             navlistPanel(
+               tabPanel("Ella",
+                        img(src = "image_2.jpg", height = 250, width = 250),
+                        p("Ella is a small town in the Badulla
+                          District of Uva Province, Sri Lanka governed by an Urban Council.
+                          It is approximately 200 kilometers east of Colombo and is situated
+                          at an elevation of 1,041 meters above sea level. The area has a
+                          rich bio-diversity, dense with numerous varieties of flora and fauna.",
+                          style = "text-align: justify"),
+               ),
+               tabPanel("Sigiriya",
+                        img(src = "image_3.jpg", height = 250, width = 250),
+                        p("Sigiriya or Sinhagiri is an ancient rock fortress located in
+                          the northern Matale District near the town of Dambulla in the
+                          Central Province, Sri Lanka. It is a site of historical and
+                          archaeological significance that is dominated by a massive
+                          column of rock approximately 180 meters high.",
+                          style = "text-align: justify;")
+               )
+             ),
+    ),
+    tabPanel("Tours",
+             h3("Choose the tour you want:"),
+             selectInput("tours", label = "Round Tours: ",
+                         choices = list("All tour Packages", "Classic Mini Sri Lanka Tour","Sri Lanka Cultural Tour"))  
+    )
+    
+  ),
+  wellPanel(
+    h4("Contact Details"),
+    fluidRow(
+      column(width = 3,p(strong("Main Branch:")),
+             p("No.123, Main Street"),
+             p("Kandy, Sri Lanka")),
+      column(width = 3,
+             p(strong("Telephone:")),
+             p("+94 71 234 567"),
+             p("+94 78 654 321")),
+      column(width = 3,
+             p(strong("Email:")),
+             p("sltours@gmail.com")),
+      column(width = 3,
+             p(strong("Facebook:")),
+             p(a("Facebook Page",href="https://www.facebook.com/your-facebook-page")))
+      
+    )
+  )
+  
+  
+  
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  
+  
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)

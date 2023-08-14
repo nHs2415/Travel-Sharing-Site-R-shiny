@@ -1,0 +1,2 @@
+"0","boxplot<-ggplot(Loan_data,aes(x=Property_Area, y=Loan_Amount))+geom_boxplot()+scale_x_discrete(name=""property area"")+scale_y_continuous(name=""loan amount"",  breaks = seq(0,500,50), limits=c(0,500))+ggtitle(""Box plot of Loan amount vs Property area"")"
+"0","boxplot"

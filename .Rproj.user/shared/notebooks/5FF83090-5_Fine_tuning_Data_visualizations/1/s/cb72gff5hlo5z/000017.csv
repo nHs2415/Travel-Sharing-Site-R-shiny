@@ -1,0 +1,2 @@
+"0","ggplot(msleep, aes(x=sleep_total)) + geom_histogram(color=""black"",fill=""light blue"","
+"0","bins=10)"

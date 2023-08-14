@@ -1,0 +1,4 @@
+"0","ggplot(data = Loan_data, aes(x = Property_Area,y = Loan_Amount)) +"
+"0","  geom_boxplot() +"
+"0","  xlab(""Property Area"") +"
+"0","  scale_y_continuous(name = ""Loan Amount"",limits = c(0,500),breaks = seq(0,500,50))"

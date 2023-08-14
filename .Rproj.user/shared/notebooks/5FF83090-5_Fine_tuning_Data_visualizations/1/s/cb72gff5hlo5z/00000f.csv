@@ -1,0 +1,4 @@
+"0","library(ggplot2) # load the package"
+"0",""
+"0","# Basic Histogram"
+"0","ggplot(msleep, aes(x=sleep_total)) + geom_histogram()"

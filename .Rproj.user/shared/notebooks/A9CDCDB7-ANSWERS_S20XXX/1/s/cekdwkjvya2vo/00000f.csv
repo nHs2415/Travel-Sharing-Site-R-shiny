@@ -1,0 +1,13 @@
+"0","sales_data <- read.csv(""./Data/sales_data.csv"")"
+"0","attach(sales_data)"
+"2","The following objects are masked from sd (pos = 3):
+
+    Month, Product_A, Product_B, X
+
+"
+"2","The following objects are masked from sd (pos = 4):
+
+    Month, Product_A, Product_B, X
+
+"
+"0","head(sales_data)"

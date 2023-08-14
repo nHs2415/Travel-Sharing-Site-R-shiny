@@ -1,0 +1,6 @@
+"0","average_sales <- function(sd){"
+"0","  average <- colMeans(sd[,c(""Product_A"",""Product_B"")])"
+"0","  result <- data.frame(Product = c(""Product_A"",""Product_B""),Average_Sales = average)"
+"0","  return(result)"
+"0","}"
+"0","average_sales(sd)"
